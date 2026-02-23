@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>drawJS</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/drawflow/dist/drawflow.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/drawflow/dist/drawflow.min.js"></script>
+<link rel="stylesheet" href="drawflowstyle.css" >
+<script src="arrayToCode.js" defer></script>
+<style>button {padding: 10px;}</style>
+</head>
+<body>
+
+<div id="drawflow" style="width:100%; height:400px; border: 2px solid grey;"></div>
+<div style="position: fixed; bottom: 10px; right: 10px;">
+   <button id="zin">+</button>
+   <button id="zout">-</button>
+</div>
+<div style="width: 90%;position: fixed;top: 5px;left: 5px;display: flex;overflow: auto;">
+   <button onclick="addEl()">Add Source</button>
+   <button onclick="addEv()">Add Event</button>
+   <button onclick="addFun()">Add functionality</button>
+   <button onclick="addIife()">Add IIFE</button>
+   <button onclick="addSelector()">Add selector</button>
+   <button onclick="addPrompt()">Add prompt</button>
+   <button onclick="addConsole()">Add console</button>
+   <button onclick="addAlert()">Add alert</button>   
+   <button onclick="addIf()">Add if</button>
+   <button onclick="addElseif()">Add elseif</button>
+   <button onclick="addElse()">Add else</button>
+   <button onclick="addFor()">Add for</button>
+   <button onclick="addEx()">addeex</button>
+</div>
+<textarea id="arrayCode" style="margin: 20px 0; width: 100%; height: 200px;" readonly></textarea>
+
+<div class="exmodel" style="position: fixed; top: 40px; right: 10px;">
+   <button class="previewFun" style="padding: 10px;">example button</button>
+   <p>Note: this button class is "btn"</p>
+</div>
+
+<script>
+const editor = new Drawflow(document.getElementById('drawflow'));
+editor.start();
+let nodecount = null;
+function addEl(){
+   nodecount = 1 + nodecount;
+   //console.log(nodecount);
+   editor.addNode(
+     'source',
+     0, 1,
+     100, 100,
+     'source'+nodecount,
+     { title: 'source', value: 'btn' },
+     `<div>
+         <div class="title-box" style="background: #27c4b4;">Source Element</div>
+            <div class="box">
+               source name
+               <input oninput="editor.updateNodeDataFromId(${nodecount}, { title: 'source', value: document.querySelector('.node-input${nodecount}').value }); rebuildSequences();" class="node-input${nodecount}" type="text" value="btn">
+            </div>
+         </div>
+      </div>`
+   );
+}
+
+function addEv(){
+   nodecount = 1 + nodecount;
+   console.log(nodecount);
+   editor.addNode(
+     'event',
+     1, 1,
+     150, 150,
+     'event'+nodecount,
+     { title: 'event', value: 'click' },
+     `<div>
+         <div class="title-box" style="background: #c4a3277d;">Event</div>
+            <div class="box">
+                  event name
+                  <select oninput="editor.updateNodeDataFromId(${nodecount}, { title: 'event', value: document.querySelector('.node-input${nodecount}').value }); rebuildSequences();" class="node-input${nodecount}">
+                     <option value="click">click</option>
+                     <option value="dblclick">double click</option>
+                  </select>
+            </div>
+         </div>
+      </div>`
+   );
+}
+
+function addFun(){
+   nodecount = 1 + nodecount;
+   console.log(nodecount);
+   editor.addNode(
+     'func',
+     1, 1,
+     180, 180,
+     'func'+nodecount,
+     { title: 'func', value: 'alert("hello world");' },
+     `<div>
+         <div class="title-box" style="background: #c4272d7a;">Function</div>
+            <div class="box">
+                  functionality 
+                  <textarea oninput="editor.updateNodeDataFromId(${nodecount}, { title: 'func', value: document.querySelector('.node-input${nodecount}').value }); rebuildSequences();" class="node-input${nodecount}" type="text" value="">alert('hello world')</textarea>
+            </div>
+         </div>
+      </div>`
+   );
+}
+
+function addIife(){
+   nodecount = 1 + nodecount;
+   console.log(nodecount);
+   editor.addNode(
+     'iife',
+     0, 1,
+     280, 210,
+     'iife'+nodecount,
+     { title: 'iife', value: 'alert("hello from iife.");' },
+     `<div>
+         <div class="title-box" style="background: #a86cf5ad;">Immediate invoke function expression</div>
+            <div class="box">
+                  IIFE
+                  <input oninput="editor.updateNodeDataFromId(${nodecount}, { title: 'iife', value: document.querySelector('.node-input${nodecount}').value }); rebuildSequences();" class="node-input${nodecount}" type="text" value="iife" readonly></input>
+            </div>
+         </div>
+      </div>`
+   );
+}
+
+function addIf(){
+   nodecount = 1 + nodecount;
+   console.log(nodecount);
+   editor.addNode(
+     'if',
+     1, 1,
+     190, 190,
+     'if'+nodecount,
+     { title: 'if', value: 'j === 5' },
+     `<div>
+         <div class="title-box" style="background: #15d700ad;">Condition</div>
+            <div class="box">
+                  if condition 
+                  <input oninput="editor.updateNodeDataFromId(${nodecount}, { title: 'if', value: document.querySelector('.node-input${nodecount}').value }); rebuildSequences();" class="node-input${nodecount}" type="text" value="j === 5">
+            </div>
+         </div>
+      </div>`
+   );
+}
+
+function addElseif(){
+   nodecount = 1 + nodecount;
+   console.log(nodecount);
+   editor.addNode(
+     'elseif',
+     1, 1,
+     200, 200,
+     'elseif'+nodecount,
+     { title: 'elseif', value: "j==3 + alert('Equal 3');" },
+     `<div>
+         <div class="title-box" style="background: #d7b400ad;">Else if</div>
+            <div class="box">
+                  Else if
+                  <textarea oninput="editor.updateNodeDataFromId(${nodecount}, { title: 'elseif', value: document.querySelector('.node-input${nodecount}').value }); rebuildSequences();" class="node-input${nodecount}" type="text" value="">j==3 + alert("equal 3");</textarea>
+            </div>
+         </div>
+      </div>`
+   );
+}
+
+function addElse(){
+   nodecount = 1 + nodecount;
+   console.log(nodecount);
+   editor.addNode(
+     'else',
+     1, 1,
+     210, 210,
+     'else'+nodecount,
+     { title: 'else', value: "alert('Else part');" },
+     `<div>
+         <div class="title-box" style="background: #96015b66;">Else</div>
+            <div class="box">
+                  Else default 
+                  <textarea oninput="editor.updateNodeDataFromId(${nodecount}, { title: 'else', value: document.querySelector('.node-input${nodecount}').value }); rebuildSequences();" class="node-input${nodecount}" type="text" value="">alert("else part");</textarea>
+            </div>
+         </div>
+      </div>`
+   );
+}
+
+function addFor(){
+   nodecount = 1 + nodecount;
+   console.log(nodecount);
+   editor.addNode(
+     'for',
+     1, 1,
+     220, 220,
+     'for'+nodecount,
+     { title: 'for', value: "let j=0; j<5; j++" },
+     `<div>
+         <div class="title-box" style="background: #0eff0066;">Loop</div>
+            <div class="box">
+                  for loop
+                  <input oninput="editor.updateNodeDataFromId(${nodecount}, { title: 'for', value: document.querySelector('.node-input${nodecount}').value }); rebuildSequences();" class="node-input${nodecount}" type="text" value="let j=0; j<5; j++">
+            </div>
+         </div>
+      </div>`
+   );
+}
+
+function addConsole(){
+   nodecount = 1 + nodecount;
+   console.log(nodecount);
+   editor.addNode(
+     'console',
+     1, 1,
+     220, 220,
+     'console'+nodecount,
+     { title: 'console', value: "console.log('hello console');" },
+     `<div>
+         <div class="title-box" style="background: #ccc;">Console</div>
+            <div class="box">
+                  method
+                  <select oninput="editConsoleNode(${nodecount})" class="node-input${nodecount}">
+                     <option value="log">log</option>
+                     <option value="warn">warn</option>
+                     <option value="error">error</option>
+                  </select>
+                  console output
+                  <input oninput="editConsoleNode(${nodecount})" class="node-input${nodecount+"cl"+nodecount}" type="text" value="'hello console'">
+            </div>
+         </div>
+      </div>`
+   );
+}
+
+function addAlert(){
+   nodecount = 1 + nodecount;
+   console.log(nodecount);
+   editor.addNode(
+     'alert',
+     1, 1,
+     220, 220,
+     'alert'+nodecount,
+     { title: 'alert', value: "'hello alert'" },
+     `<div>
+         <div class="title-box" style="background: #999;">Alert</div>
+            <div class="box">
+                  alert output
+                  <input oninput="editor.updateNodeDataFromId(${nodecount}, { title: 'alert', value: document.querySelector('.node-input${nodecount}').value }); rebuildSequences();" class="node-input${nodecount}" type="text" value="'hello alert'">
+            </div>
+         </div>
+      </div>`
+   );
+}
+
+function addPrompt(){
+   nodecount = 1 + nodecount;
+   console.log(nodecount);
+   editor.addNode(
+     'prompt',
+     1, 1,
+     220, 220,
+     'prompt'+nodecount,
+     { title: 'prompt', value: "let variableName = prompt('labelName');" },
+     `<div>
+         <div class="title-box" style="background: #0eff9900;">Prompt</div>
+            <div class="box">
+                  prompt input
+                  <input class="node-input${nodecount}" type="text" placeholder="variable name" value="variableName" oninput="editPromptNode(${nodecount})">
+                  prompt label
+                  <input class="node-input${nodecount+'pt'+nodecount}" type="text" placeholder="label name" value="labelName" oninput="editPromptNode(${nodecount})">
+            </div>
+         </div>
+      </div>`
+   );
+}
+
+function addSelector(){
+   nodecount = 1 + nodecount;
+   console.log(nodecount);
+   editor.addNode(
+     'selector',
+     1, 1,
+     220, 220,
+     'selector'+nodecount,
+     { title: 'selector', value: "document.querySelector('.selectorName').innerText = 'value';" },
+     `<div>
+         <div class="title-box" style="background: #0eff9900;">Selector</div>
+            <div class="box">
+                  type
+                  <select oninput="editSelectorNode(${nodecount})" class="node-input${nodecount}">
+                     <option value=".">class</option>
+                     <option value="#">id</option>
+                     <option value="">tag</option>
+                  </select>
+                  name
+                  <input class="node-input${nodecount+'sl'+nodecount+'sl'+nodecount}" type="text" placeholder="selector name" value="selectorName" oninput="editSelectorNode(${nodecount})">
+                  method
+                  <select oninput="editSelectorNode(${nodecount})" class="node-input${nodecount+'sl'+nodecount}">
+                     <option value="innerHTML">innerHTML</option>
+                     <option value="innerText">innerText</option>
+                     <option value="textContent">textContent</option>
+                  </select>
+                  value
+                  <input class="node-input${nodecount+'sl'+nodecount+'sl'+nodecount+'sl'+nodecount}" type="text" placeholder="value" value="value" oninput="editSelectorNode(${nodecount})">
+                  
+            </div>
+         </div>
+      </div>`
+   );
+}
+
+/*
+// 🧱 Add test nodes
+editor.addNode(
+  'source',
+  0, 1,
+  100, 100,
+  'source1',
+  { title:'source', value: 'btn' },
+  `<div><input oninput="editor.updateNodeDataFromId(1, { value: document.querySelector('.node-input1').value });" class="node-input1" type="text" value="btn"></div>`
+);
+
+editor.addNode(
+  'event',
+  1, 1,
+  150, 150,
+  'event',
+  { title: 'event', value: 'onclick' },
+  `<div><input oninput="editor.updateNodeDataFromId(2, { value: document.querySelector('.node-input2').value });" class="node-input2" type="text" value="onclick"></div>`
+);
+
+editor.addNode(
+  'event',
+  1, 1,
+  200, 200,
+  'event',
+  { title: 'event', value: 'oninput' },
+  `<div><input oninput="editor.updateNodeDataFromId(3, { value: document.querySelector('.node-input3').value });" class="node-input3" type="text" value="onclick"></div>`
+);
+*/
+
+// 🎯 Events
+//editor.on('nodeCreated', id => console.log('Node created:', id));
+//editor.on('connectionCreated', con => generatCode(con));
+
+function editPromptNode(nc) {
+  let v = document.querySelector(`.node-input${nc}`).value;
+  let l = document.querySelector(`.node-input${nc+'pt'+nc}`).value;
+  editor.updateNodeDataFromId(nc, { title: 'prompt', value: `let ${v} = prompt('${l}');` } ); 
+  rebuildSequences();
+}
+
+function editConsoleNode(nc) {
+  let m = document.querySelector(`.node-input${nc}`).value;
+  let s = document.querySelector(`.node-input${nc+'cl'+nc}`).value;
+  editor.updateNodeDataFromId(nc, { title: 'console', value: `console.${m}(${s});` } ); 
+  rebuildSequences();
+}
+
+function editSelectorNode(nc) {
+  let t = document.querySelector(`.node-input${nc}`).value;
+  let m = document.querySelector(`.node-input${nc+'sl'+nc}`).value;
+  let n = document.querySelector(`.node-input${nc+'sl'+nc+'sl'+nc}`).value;
+  let v = document.querySelector(`.node-input${nc+'sl'+nc+'sl'+nc+'sl'+nc}`).value;
+  editor.updateNodeDataFromId(nc, { title: 'selector', value: `document.querySelector('${t}${n}').${m} = ${v};` } ); 
+  rebuildSequences();
+}
+
+// 🎯 Restriction logic
+editor.on('connectionCreated', con => {
+    const outNode = editor.getNodeFromId(con.output_id);
+    const inNode = editor.getNodeFromId(con.input_id);
+
+    if (!outNode || !inNode) return;
+
+    // ❌ Restrict Source → Func
+    if (outNode.name === 'source' && inNode.name === 'func') {
+      alert('❌ Source → Func connection not allowed!');
+
+      // 🧹 Remove the connection manually
+      const module = editor.module;
+      const outputId = con.output_id;
+      const inputId = con.input_id;
+      const outputClass = con.output_class;
+      const inputClass = con.input_class;
+
+      // 1️⃣ Remove from internal data
+      const connections = editor.drawflow[module].data[outputId].outputs[outputClass].connections;
+      const index = connections.findIndex(c => c.node === inputId && c.output === inputClass);
+      if (index > -1) connections.splice(index, 1);
+
+      // 2️⃣ Remove visual SVG line
+      const selector = `.connection.node_in_${inputId}.node_out_${outputId}.output_${outputClass}.input_${inputClass}`;
+      const line = editor.container.querySelector(selector);
+      if (line) line.remove();
+
+      // ✅ Optional: re-render the connections (to keep clean)
+      editor.updateConnectionNodes('output', outputId);
+
+      return;
+    }
+
+    //console.log(`✅ Allowed: ${outNode.name} → ${inNode.name}`);
+});
+
+// ===============================
+// Drawflow -> ordered JSON builder
+// Keeps order top-to-bottom, handles add/remove/reconnect
+// ===============================
+
+/*
+Assumptions about editor API (Drawflow-like):
+- editor.getNodeFromId(nodeId) -> returns node object with .data.title and .data.value (and optionally .data.fun etc.)
+- generatCode(con) or some event sends connection objects with { output_id, input_id }
+- editor.on('connectionCreated', handler) and editor.on('connectionRemoved', handler)
+- editor.on('nodeRemoved', handler) fires with removed node id
+Adjust event names to your Drawflow version if different.
+*/
+
+let edges = {};
+let incoming = {};
+let actions = [];
+let sequences = [];
+
+function getNode(id) {
+  try { return editor.getNodeFromId(id); } catch (e) { return null; }
+}
+
+function addEdge(out, inp) {
+  edges[out] = edges[out] || [];
+  if (!edges[out].includes(inp)) edges[out].push(inp);
+
+  incoming[inp] = incoming[inp] || [];
+  if (!incoming[inp].includes(out)) incoming[inp].push(out);
+}
+
+function removeEdge(out, inp) {
+  if (edges[out]) {
+    edges[out] = edges[out].filter(i => i !== inp);
+    if (edges[out].length === 0) delete edges[out];
+  }
+  if (incoming[inp]) {
+    incoming[inp] = incoming[inp].filter(i => i !== out);
+    if (incoming[inp].length === 0) delete incoming[inp];
+  }
+}
+
+function removeNodeFromMaps(id) {
+  if (edges[id]) delete edges[id];
+  Object.keys(edges).forEach(out => {
+    edges[out] = edges[out].filter(i => i !== id);
+    if (edges[out].length === 0) delete edges[out];
+  });
+  if (incoming[id]) delete incoming[id];
+  Object.keys(incoming).forEach(inp => {
+    incoming[inp] = incoming[inp].filter(o => o !== id);
+    if (incoming[inp].length === 0) delete incoming[inp];
+  });
+}
+
+function rebuildSequences() {
+  sequences = [];
+  actions = [];
+
+  const candidateStarts = new Set(Object.keys(edges));
+  const explicitSourceIds = [];
+
+  candidateStarts.forEach(id => {
+    const node = getNode(id);
+    if (node && node.data.title === "source") {
+      explicitSourceIds.push(id);
+    } else if(node && node.data.title === "iife") {
+      explicitSourceIds.push(id); 
+    }
+  });
+
+  let startNodes = explicitSourceIds.length ? explicitSourceIds : [];
+  if (startNodes.length === 0) {
+    candidateStarts.forEach(id => {
+      if (!incoming[id]) startNodes.push(id);
+    });
+  }
+  if (startNodes.length === 0) startNodes = Array.from(candidateStarts);
+
+  function dfsBuild(path, currId, visited) {
+    visited = new Set(visited);
+    if (visited.has(currId)) {
+      sequences.push(path.slice());
+      return;
+    }
+    visited.add(currId);
+    const node = getNode(currId);
+    if (node) path.push(currId);
+
+    const outs = edges[currId] || [];
+    if (outs.length === 0) {
+      sequences.push(path.slice());
+      return;
+    }
+    outs.forEach(nextId => dfsBuild(path.slice(), nextId, visited));
+  }
+
+  startNodes.forEach(id => dfsBuild([], id, new Set()));
+
+  sequences.forEach(path => {
+    const obj = {};
+    const counters = {};
+    path.forEach(nodeId => {
+      const n = getNode(nodeId);
+      if (!n || !n.data) return;
+      let type = n.data.title.toLowerCase();
+
+      if (type === "source") type = "el";
+      else if (type === "event") type = "ev";
+      else if (type === "func") type = "fun";
+      else if (type === "for") type = "for";
+      else if (type === "if") type = "if";
+      else if (type === "elseif") type = "elseIf";
+      else if (type === "else") type = "else";
+      else if (type === "iife") type = "iife";
+
+      if (type === "elseIf") {
+        if (!obj.elseIf) obj.elseIf = [];
+        obj.elseIf.push({ cond: n.data.value, fun: n.data.fun || "" });
+        return;
+      }
+
+      if (obj[type]) {
+        counters[type] = (counters[type] || 1) + 1;
+        obj[type + counters[type]] = n.data.value || n.data.fun || null;
+      } else {
+        obj[type] = n.data.value || n.data.fun || null;
+      }
+    });
+
+    actions.push(obj);
+  });
+
+  //console.log("✅ actions:", JSON.stringify(actions, null, 2));
+
+  if (typeof generateCodeFromTopToBottom === "function") {
+    generateCodeFromTopToBottom(actions);
+    //sessionStorage.setItem('drawArray', JSON.stringify(actions, null, 3));
+  } else {
+    //console.warn("⚠️ generateCodeFromTopToBottom function not found!");
+  }
+}
+
+// Editor event listeners
+editor.on('connectionCreated', con => {
+  addEdge(con.output_id, con.input_id);
+  rebuildSequences();
+});
+
+editor.on('connectionRemoved', con => {
+  removeEdge(con.output_id, con.input_id);
+  rebuildSequences();
+});
+
+editor.on('nodeRemoved', id => {
+  removeNodeFromMaps(id);
+  rebuildSequences();
+});
+</script>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  actions = sessionStorage.getItem('drawArray');
+  if(actions){
+    //console.log("array is "+JSON.parse(actions));
+    generateCodeFromTopToBottom(JSON.parse(actions));
+  }
+});
+</script>
+
+<script>
+document.querySelector(".previewFun").addEventListener("click", () => {
+
+    let jsFun = generateCodeFromTopToBottom(actions);
+
+    const fullHTML = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Fun Preview</title>
+        </head>
+        <body>
+
+            <button class="btn">Click Me</button>
+
+            <script>
+            ${jsFun}
+            <\/script>
+
+        </body>
+        </html>
+    `;
+
+    // 1️⃣ Create Blob
+    const blob = new Blob([fullHTML], { type: "text/html" });
+
+    // 2️⃣ Generate URL
+    const url = URL.createObjectURL(blob);
+
+    // 3️⃣ Open in new tab
+    window.open(url, "_blank");
+
+});
+
+// Zoom In
+document.getElementById("zin").addEventListener("click", () => {
+  editor.zoom_in();
+});
+
+// Zoom Out
+document.getElementById("zout").addEventListener("click", () => {
+  editor.zoom_out();
+});
+
+// Reset Zoom
+/*document.getElementById("zreset").addEventListener("click", () => {
+  editor.zoom_reset();
+});*/
+</script>
+
+</body>
+</html>
