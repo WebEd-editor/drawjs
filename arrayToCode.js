@@ -83,7 +83,7 @@ ${lines.join("\n")}
       });
     `;*/
   });
-  console.log(result);
+  
   document.getElementById("arrayCode").value = result;
   return result;
 }
